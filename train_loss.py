@@ -1,5 +1,6 @@
 import os
 from tensorboard.backend.event_processing.event_accumulator import EventAccumulator
+import argparse
 import matplotlib.pyplot as plt
 
 def extract_loss_from_tensorboard(event_file):
@@ -52,14 +53,22 @@ def plot_loss(loss_values):
 
 def main():
     # Path to your TensorBoard event file
-    event_file = "/Users/nidhushankanagaraja/Desktop/NYU/Sem 3/Dl/Final/Project/Anomaly-Detection-in-Real-Time/AnomalyDetectionCVPR2018-Pytorch-main/exps/tensorboard/Epoch loss_Loss (train)/events.out.tfevents.1733893459.Nidhushans-MacBook-Pro.local.22589.2"
+    parser = argparse.ArgumentParser(description="Extract and plot training loss from TensorBoard event file.")
+    parser.add_argument(
+        "--event_file",
+        type=str,
+        required=True,
+        help="Path to the TensorBoard event file.",
+    )
 
-    if not os.path.exists(event_file):
-        print(f"Event file not found: {event_file}")
+    args = parser.parse_args()
+
+    if not os.path.exists(args.event_file):
+        print(f"Event file not found: {args.event_file}")
         return
 
     try:
-        loss_values = extract_loss_from_tensorboard(event_file)
+        loss_values = extract_loss_from_tensorboard(args.event_file)
         if loss_values:
             print("Loss values recorded during training:")
             for step, loss in loss_values:
