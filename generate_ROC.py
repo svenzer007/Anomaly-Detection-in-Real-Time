@@ -98,7 +98,7 @@ if __name__ == "__main__":
     lw = 2
     roc_auc = auc(fpr, tpr)
     plt.plot(
-        fpr, tpr, color="darkorange", lw=lw, label=f"ROC curve (area = {roc_auc:0.2f})"
+        fpr, tpr, color="darkorange", lw=lw, label=f"ROC curve (area = {roc_auc:0.6f})"
     )
     plt.plot([0, 1], [0, 1], color="navy", lw=lw, linestyle="--")
     plt.xlim([0.0, 1.0])
@@ -108,6 +108,9 @@ if __name__ == "__main__":
     plt.legend(loc="lower right")
 
     os.makedirs("graphs", exist_ok=True)
-    plt.savefig(path.join("graphs", "roc_auc.png"))
+    model_path = args.model_path
+    last_part = os.path.basename(model_path)
+    # print(last_part)
+    plt.savefig(path.join("graphs", "roc_auc"+last_part+".png"))
     plt.close()
-    print(f"ROC curve (area = {roc_auc:0.2f})")
+    print(f"ROC curve (area = {roc_auc:0.6f})"+args.model_path)
