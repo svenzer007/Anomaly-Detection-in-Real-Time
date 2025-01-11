@@ -1,7 +1,6 @@
 # Anomaly Detection in Real-Time Surveillance Videos
 
-This repository contains the implementation and findings of our project on anomaly detection in real-time surveillance videos. The work replicates and extends the methodologies presented in [AnomalyDetectionCVPR2018-Pytorch](https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch) and based on [Sultani et al., 2018](https://github.com/WaqasSultani/AnomalyDetectionCVPR2018).
-
+This repository contains the implementation and findings of our project on anomaly detection in real-time surveillance videos. The work replicates and extends the methodologies presented in [Kosman, E. (2022). Pytorch implementation of Real-World Anomaly Detection in Surveillance Videos (Version 1.0.0) [Computer software]. https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch](https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch) and based on [Sultani et al., 2018](https://github.com/WaqasSultani/AnomalyDetectionCVPR2018).
 ---
 
 ## Table of Contents
