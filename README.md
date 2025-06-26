@@ -1,130 +1,208 @@
-# Anomaly Detection in Real-Time Surveillance Videos
+# 🎥 Anomaly Detection in Real-Time Surveillance Videos
+
+> PyTorch implementation of real-time anomaly detection in surveillance videos, based on [Sultani et al., 2018 (CVPR)](https://arxiv.org/abs/1801.04264) and extended from [ekosman's PyTorch reimplementation](https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch).
+
 ---
 
-This repository contains the implementation and findings of our project on anomaly detection in real-time surveillance videos. The work replicates and extends the methodologies presented in [Kosman, E. (2022). Pytorch implementation of Real-World Anomaly Detection in Surveillance Videos (Version 1.0.0) [Computer software]. https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch](https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch) and based on [Sultani et al., 2018](https://github.com/WaqasSultani/AnomalyDetectionCVPR2018).
+## 📌 Table of Contents
 
-## Table of Contents
-
-- [Introduction](#introduction)
+- [Overview](#overview)
 - [Installation](#installation)
-- [Data Preparation](#data-preparation)
+- [Dataset Preparation](#dataset-preparation)
+- [Feature Extraction](#feature-extraction)
 - [Training](#training)
 - [Evaluation](#evaluation)
-- [Pre-trained Models](#pre-trained-models)
-- [Extracted Features](#extracted-features)
-- [C3D Model](#c3d-model)
-- [Training Loss](#training-loss)
+- [Pretrained Models & Downloads](#pretrained-models--downloads)
 - [Results](#results)
+- [Demo Usage](#demo-usage)
 - [Future Work](#future-work)
 - [References](#references)
+- [FAQ](#faq)
 
 ---
 
-## Introduction
+## 📖 Overview
 
-Anomaly detection in surveillance videos is crucial for automated security systems. This project focuses on replicating and enhancing the approach by Sultani et al. using a PyTorch implementation.
+This project addresses anomaly detection in surveillance videos using deep learning. It implements a fully connected anomaly classifier trained on features extracted by pre-trained 3D CNNs like C3D.
+
+Key features:
+- Feature extraction using C3D
+- Anomaly detection using a shallow neural network
+- ROC-based evaluation
+- Offline and real-time video demo support
 
 ---
 
-## Installation
+## ⚙️ Installation
 
 1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/yourusername/your-repo-name.git
-   cd your-repo-name
-   ```
-
-2. **Set up the environment:**
-   Ensure you have [Anaconda](https://www.anaconda.com/products/individual) installed. Then, create and activate the environment:
-   ```bash
-   conda env create -f environment.yml
-   conda activate your_env_name
-   ```
-
----
-
-## Data Preparation
-
-1. **Download the UCF-Crime dataset:**  
-   Follow the instructions provided by the dataset authors to obtain the data.
-
-2. **Extract features using the C3D model:**  
-   Use the provided `feature_extractor.py` script to extract features from the videos.
-
----
-
-## Training
-
-To train the anomaly detection model:
 
 ```bash
-python TrainingAnomalyDetector_public.py --features_path path_to_features --annotation_path path_to_annotations --epochs 500
+git clone https://github.com/yourusername/your-repo-name.git
+cd your-repo-name
+````
+
+2. **Set up the environment (requires Anaconda):**
+
+```bash
+conda env create -f environment.yml
+conda activate your_env_name
 ```
 
 ---
 
-## Evaluation
+## 🗂️ Dataset Preparation
 
-To evaluate the trained model:
+1. **Download the UCF-Crime Dataset:**
 
-```bash
-python generate_ROC.py --features_path path_to_features --annotation_path path_to_annotations --model_path path_to_model
+   Follow instructions from the [UCF-Crime dataset repo](https://github.com/WaqasSultani/AnomalyDetectionCVPR2018).
+
+2. **Organize the dataset:**
+
+```
+dataset/
+├── Abnormal/
+├── Normal/
 ```
 
 ---
 
-## Pre-trained Models
+## 🎞️ Feature Extraction
 
-Pre-trained models trained for 500 epochs are available for download:
+Use the pre-trained C3D model to extract features:
 
-- [Trained Models](https://drive.google.com/drive/folders/1YGEBYNNFwxbf3uLOIsjs7NoyFKQhtBHd?usp=sharing)
-
----
-
-## Extracted Features
-
-Extracted features used in the project can be found here:
-
-- [Extracted Features](https://drive.google.com/drive/folders/1S925QpBLGf2I8ySpuTXrItfQARo-4iID?usp=sharing)
+```bash
+python feature_extractor.py \
+  --dataset_path ./dataset \
+  --model_type c3d \
+  --pretrained_3d ./pretrained/c3d.pickle
+```
 
 ---
 
-## C3D Model
+## 🏋️ Training
 
-Download the pre-trained C3D model used for feature extraction:
+Train the anomaly detection model on extracted features:
 
-- [C3D Model](https://drive.google.com/drive/folders/1ma43hGsazibXhvOQE3Dl6BaHWJZ8OfL1?usp=sharing)
-
----
-
-## Training Loss
-
-The loss values recorded during training are available here:
-
-- [Training Loss](https://drive.google.com/drive/folders/1PU0gjVvv-z_CJNk6BeD_NFQ3krBAnbho?usp=drive_link)
+```bash
+python TrainingAnomalyDetector_public.py \
+  --features_path ./features \
+  --annotation_path ./annotations/Train_annotations.txt \
+  --epochs 500
+```
 
 ---
 
-## Results
+## 📈 Evaluation
 
-Our model achieved the following performance metrics:
+Generate the ROC curve for your trained model:
 
-- **Accuracy:** 85%
-- **Precision:** 80%
-- **Recall:** 75%
-
----
-
-## Future Work
-
-Future improvements include:
-
-- Implementing dictionary learning techniques.
-- Enhancing model robustness to diverse surveillance scenarios.
-- Exploring transformer-based feature extractors.
+```bash
+python generate_ROC.py \
+  --features_path ./features \
+  --annotation_path ./annotations/Test_annotations.txt \
+  --model_path ./trained_models/epoch_500.pt
+```
 
 ---
 
-## References
+## 💾 Pretrained Models & Downloads
 
-- Sultani, W., Chen, C., & Shah, M. (2018). Real-world Anomaly Detection in Surveillance Videos. *CVPR*. [Paper](https://arxiv.org/abs/1801.04264)
+| Resource              | Link                                                                                                 |
+| --------------------- | ---------------------------------------------------------------------------------------------------- |
+| 📦 Pretrained Models  | [Google Drive](https://drive.google.com/drive/folders/1YGEBYNNFwxbf3uLOIsjs7NoyFKQhtBHd?usp=sharing) |
+| 🎞️ C3D Model Weights | [Google Drive](https://drive.google.com/drive/folders/1ma43hGsazibXhvOQE3Dl6BaHWJZ8OfL1?usp=sharing) |
+| 📊 Extracted Features | [Google Drive](https://drive.google.com/drive/folders/1S925QpBLGf2I8ySpuTXrItfQARo-4iID?usp=sharing) |
+| 📉 Training Logs      | [Google Drive](https://drive.google.com/drive/folders/1PU0gjVvv-z_CJNk6BeD_NFQ3krBAnbho?usp=sharing) |
+
+---
+
+## 📊 Results
+
+| Metric    | Score |
+| --------- | ----- |
+| Accuracy  | 85%   |
+| Precision | 80%   |
+| Recall    | 75%   |
+
+*Note: C3D features may yield slightly lower AUC than reported in the original paper due to different weight versions.*
+
+---
+
+## 🧪 Demo Usage
+
+### Offline (Video File)
+
+```bash
+python video_demo.py \
+  --feature_extractor ./pretrained/c3d.pickle \
+  --feature_method c3d \
+  --ad_model ./trained_models/epoch_500.pt \
+  --n_segments 32
+```
+
+### Real-Time (Webcam)
+
+```bash
+python AD_live_prediction.py \
+  --feature_extractor ./pretrained/c3d.pickle \
+  --feature_method c3d \
+  --ad_model ./trained_models/epoch_500.pt \
+  --clip_length 64
+```
+
+---
+
+## 🔮 Future Work
+
+* ✅ Add I3D or SlowFast feature extractor support
+* ✅ Improve robustness to environmental noise
+* ✅ Implement dictionary-based anomaly scoring
+* ✅ Explore transformer-based sequence models
+
+---
+
+## 📚 References
+
+* Sultani, W., Chen, C., & Shah, M. (2018). *Real-world Anomaly Detection in Surveillance Videos*. CVPR. [arXiv:1801.04264](https://arxiv.org/abs/1801.04264)
+* Kosman, E. (2022). *PyTorch implementation of Real-World Anomaly Detection in Surveillance Videos*. [GitHub](https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch)
+
+BibTeX:
+
+```bibtex
+@software{Kosman_Pytorch_implementation_of_2022,
+author = {Kosman, Eitan},
+title = {{Pytorch implementation of Real-World Anomaly Detection in Surveillance Videos}},
+year = {2022},
+version = {1.0.0},
+url = {https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch}
+}
+```
+
+---
+
+## ❓ FAQ
+
+**Q:** `video_demo.py` doesn’t show videos?
+**A:** Install [LAVFilters](http://forum.doom9.org/showthread.php?t=156191).
+
+**Q:** What’s the second column in `Train_annotations.txt`?
+**A:** It’s the video length in frames. Not used for training logic.
+
+---
+
+## 🧑‍💻 Maintainers & Contributions
+
+Contributions welcome! Please open an issue or PR if you find bugs or want to improve this project.
+
+---
+
+```
+
+Let me know if you want this version customized with:
+- Your GitHub repo name
+- Contributor names
+- Additional model links
+
+Or if you’d like a smaller "quickstart" version, I can provide that too.
+```
