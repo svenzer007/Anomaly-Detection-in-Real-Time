@@ -1,10 +1,10 @@
-# 🎥 Anomaly Detection in Real-Time Surveillance Videos
+# Anomaly Detection in Real-Time Surveillance Videos
 
 > PyTorch implementation of real-time anomaly detection in surveillance videos, based on [Sultani et al., 2018 (CVPR)](https://arxiv.org/abs/1801.04264) and extended from [ekosman's PyTorch reimplementation](https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch).
 
 ---
 
-## 📌 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Installation](#installation)
@@ -21,7 +21,7 @@
 
 ---
 
-## 📖 Overview
+## Overview
 
 This project addresses anomaly detection in surveillance videos using deep learning. It implements a fully connected anomaly classifier trained on features extracted by pre-trained 3D CNNs like C3D.
 
@@ -33,7 +33,7 @@ Key features:
 
 ---
 
-## ⚙️ Installation
+## Installation
 
 1. **Clone the repository:**
 
@@ -51,7 +51,7 @@ conda activate your_env_name
 
 ---
 
-## 🗂️ Dataset Preparation
+## Dataset Preparation
 
 1. **Download the UCF-Crime Dataset:**
 
@@ -67,7 +67,7 @@ dataset/
 
 ---
 
-## 🎞️ Feature Extraction
+## Feature Extraction
 
 Use the pre-trained C3D model to extract features:
 
@@ -80,7 +80,7 @@ python feature_extractor.py \
 
 ---
 
-## 🏋️ Training
+## Training
 
 Train the anomaly detection model on extracted features:
 
@@ -93,7 +93,7 @@ python TrainingAnomalyDetector_public.py \
 
 ---
 
-## 📈 Evaluation
+## Evaluation
 
 Generate the ROC curve for your trained model:
 
@@ -106,7 +106,7 @@ python generate_ROC.py \
 
 ---
 
-## 💾 Pretrained Models & Downloads
+## Pretrained Models & Downloads
 
 | Resource              | Link                                                                                                 |
 | --------------------- | ---------------------------------------------------------------------------------------------------- |
@@ -117,7 +117,7 @@ python generate_ROC.py \
 
 ---
 
-## 📊 Results
+## Results
 
 | Metric    | Score |
 | --------- | ----- |
@@ -129,7 +129,7 @@ python generate_ROC.py \
 
 ---
 
-## 🧪 Demo Usage
+## Demo Usage
 
 ### Offline (Video File)
 
@@ -153,16 +153,10 @@ python AD_live_prediction.py \
 
 ---
 
-## 🔮 Future Work
-
-* ✅ Add I3D or SlowFast feature extractor support
-* ✅ Improve robustness to environmental noise
-* ✅ Implement dictionary-based anomaly scoring
-* ✅ Explore transformer-based sequence models
 
 ---
 
-## 📚 References
+## References
 
 * Sultani, W., Chen, C., & Shah, M. (2018). *Real-world Anomaly Detection in Surveillance Videos*. CVPR. [arXiv:1801.04264](https://arxiv.org/abs/1801.04264)
 * Kosman, E. (2022). *PyTorch implementation of Real-World Anomaly Detection in Surveillance Videos*. [GitHub](https://github.com/ekosman/AnomalyDetectionCVPR2018-Pytorch)
